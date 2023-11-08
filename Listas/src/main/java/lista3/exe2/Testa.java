@@ -18,7 +18,7 @@ public class Testa {
         Person objPerson = new Person("Fulano de tal", "fulano");
         Message objMessage1 = new Message("Olá", objPerson);
         Message objMessage2 = new Message("boa noite", objPerson);
-        
+
         Forum objForum = new Forum("de esportes",
                 "http://forumdeesportes.com");
         objForum.addMessage(objMessage1);
