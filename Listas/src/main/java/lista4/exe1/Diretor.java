@@ -1,7 +1,6 @@
 package lista4.exe1;
 public class Diretor extends Funcionario{
     private float acoesEmpresa; // qtde de ações
-    
     public Diretor(){
         super();
     }

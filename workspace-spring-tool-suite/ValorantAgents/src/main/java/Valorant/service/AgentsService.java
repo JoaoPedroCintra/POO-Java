@@ -1,5 +1,7 @@
+// Valter Gomes e João Pedro Cintra 	4ºADS_M
 package Valorant.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,53 +20,73 @@ import Valorant.repository.AgentsRepository;
 
 @Service
 public class AgentsService {
-
 	@Autowired
-	AgentsRepository injecao;
+	 AgentsRepository injecao;
 		
 	@GetMapping 
-	public List<Agents> getAgents(){
-		return injecao.findAll();
+	public List<AgentsDto> getAgents(){
+		List<Agents> agents = injecao.findAll();
+		return converteListaAgentsToListaDtos(agents);
 	}
 		
 	@GetMapping("/{id}")
-	public Optional<Agents> getAgents(@PathVariable Long id) {
-		return injecao.findById(id);
+	public AgentsDto getAgent(@PathVariable Long id) {
+		Optional<Agents> optional = injecao.findById(id);
+		if (optional.isPresent()) {
+			return converteAgentsToDto(optional.get());
+		}
+		return null;
 	}
 		
 	@PostMapping
-	public AgentsDto addAgent(@RequestBody AgentsDto agentDto) {
-		Agents agent = converteDtoToAgents(agentDto);
+	public AgentsDto addAgent(@RequestBody AgentsDto agentsDto) {
+		Agents agent = converteDtoToAgents(agentsDto);
 		return converteAgentsToDto(injecao.save(agent));
 	}
 		
 	@DeleteMapping("/{id}")
-	public String removeAgents(@PathVariable Long id) {
-		injecao.deleteById(id);
-		return "Remoção com sucesso";
+	public String removeAgent(@PathVariable Long id) {
+		if (injecao.existsById(id)) {
+			injecao.deleteById(id);
+			return "Remoção com sucesso";
+		}
+		return "Agente não existe";
 	}
 		
 	@PutMapping()
-	public AgentsDto updateAgents(@RequestBody AgentsDto agentDto) {
-		Agents agent = converteDtoToAgents(agentDto);
+	public AgentsDto updateAgent(@RequestBody AgentsDto agentsDto) {
+		Agents agent = converteDtoToAgents(agentsDto);
 		return converteAgentsToDto(injecao.save(agent));
 	}
-	
 	public Agents converteDtoToAgents(AgentsDto dto) {
-		Agents objAgent = new Agents();
-		objAgent.setId(dto.getId());
-		objAgent.setName(dto.getName());
-		objAgent.setCategory(dto.getCategory());
-		objAgent.setSkills(dto.getSkills());
-		return objAgent;
+		Agents agent = new Agents();
+		agent.setName(dto.getName());
+		agent.setId(dto.getId());
+		agent.setCategory(dto.getCategory());
+		agent.setQ(dto.getQ());
+		agent.setE(dto.getE());
+		agent.setC(dto.getC());
+		agent.setX(dto.getX());
+		return agent;
+	}
+	public AgentsDto converteAgentsToDto(Agents agent) {
+		AgentsDto dto = new AgentsDto();
+		dto.setName(agent.getName());
+		dto.setId(agent.getId());
+		dto.setCategory(agent.getCategory());
+		dto.setQ(agent.getQ());
+		dto.setE(agent.getE());
+		dto.setC(agent.getC());
+		dto.setX(agent.getX());
+		return dto;
 	}
 	
-	public AgentsDto converteAgentsToDto(Agents agent) {
-		AgentsDto objDto = new AgentsDto();
-		objDto.setId(agent.getId());
-		objDto.setName(agent.getName());
-		objDto.setCategory(agent.getCategory());
-		objDto.setSkills(agent.getSkills());
-		return objDto;
+	public List<AgentsDto> converteListaAgentsToListaDtos(List<Agents> agents){
+		List<AgentsDto> listaDto = new ArrayList<AgentsDto>();
+		for(int i=0;i<agents.size();i++) {
+			listaDto.add(converteAgentsToDto(agents.get(i)));
+		}
+		return listaDto;
 	}
+	
 }

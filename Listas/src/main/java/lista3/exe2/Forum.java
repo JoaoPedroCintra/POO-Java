@@ -18,13 +18,12 @@ public class Forum {
         this.url = url;
         this.messages = messages;
     }
-
     public Forum(String name, String url) {
-        this.name = name;
-        this.url = url;
+        this.setName(name);
+        this.setUrl(url);
         this.messages = new ArrayList();
     }
-  
+
     public String getName() {
         return name;
     }

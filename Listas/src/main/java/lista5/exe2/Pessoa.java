@@ -41,6 +41,9 @@ public class Pessoa extends Animal implements Cidadao, Contribuinte, Professor {
         this.trabalhou = true;
         System.out.println("Pessoa trabalhou");
     }
-   
-    
+
+    @Override
+    public String toString() {
+        return "Pessoa{" + "votou=" + votou + ", pagou=" + pagou + ", ensinou=" + ensinou + ", trabalhou=" + trabalhou + ", rg=" + rg + ", cpf=" + cpf + '}';
+    }
 }

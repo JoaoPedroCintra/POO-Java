@@ -1,7 +1,7 @@
+// Valter Gomes e João Pedro Cintra 	4ºADS_M
 package Valorant.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import Valorant.model.entity.Agents;
+import Valorant.model.dto.AgentsDto;
 import Valorant.service.AgentsService;
 
 @RestController
@@ -24,30 +24,29 @@ public class AgentsController{
 		AgentsService servico;
 
 		@GetMapping
-		public List<Agents> getAgents() {
+		public List<AgentsDto> getAgents() {
 			return servico.getAgents();
 		}
 		
 		@GetMapping("/{id}")
-		public Optional<Agents> getAgent(@PathVariable Long id) {
-		Optional<Agents> agent =  servico.getAgents(id);
+		public AgentsDto getAgent(@PathVariable Long id) {
+			AgentsDto agent = servico.getAgent(id);
 			return agent;
 		}
 		
 		@PostMapping
-		public Agents addAgent(@RequestBody Agents agents) {
-			return servico.addAgent(agents);
+		public AgentsDto addAgent(@RequestBody AgentsDto agentsDto) {
+			return servico.addAgent(agentsDto);
 		}
 		
 		@DeleteMapping("/{id}")
-		public String removeAgents(@PathVariable Long id) {
-			servico.removeAgents(id);
-			return "Remoção com sucesso";
+		public String removeAgent(@PathVariable Long id) {
+			return servico.removeAgent(id);
 		}
 			
 		@PutMapping()
-		public Agents updateAgents(@RequestBody Agents agents) {
-			return servico.updateAgents(agents);
+		public AgentsDto updateAgent(@RequestBody AgentsDto agentsDto) {
+			return servico.updateAgent(agentsDto);
 		}
 		
 }

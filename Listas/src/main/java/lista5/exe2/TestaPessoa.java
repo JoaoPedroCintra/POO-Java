@@ -16,6 +16,7 @@ public class TestaPessoa {
     public static void main(String[] args) {
         // TODO code application logic here
         Pessoa objPessoa = new Pessoa();
+        System.out.println(objPessoa.toString());
         objPessoa.come();
         objPessoa.ensina();
         objPessoa.pagaIR();
@@ -24,6 +25,8 @@ public class TestaPessoa {
         objPessoa.tiraRg();
         objPessoa.trabalha();
         objPessoa.vota();
+        System.out.println(objPessoa.toString());
+
         
     }
     

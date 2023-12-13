@@ -1,3 +1,4 @@
+// Valter Gomes e João Pedro Cintra 	4ºADS_M
 package Valorant.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
